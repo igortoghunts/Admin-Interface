@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Route
 } from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
 
 import Navigation from './Navigation';
 import Account from './Account';
@@ -24,7 +25,7 @@ function App() {
             </div>
             <div className="ui segment">
                 {/*<SignIn/>*/}
-                <SignUp/>
+                <Route path={ROUTES.SIGN_UP} component={SignUp} />
                 {/*<Home/>*/}
                 {/*<Account/>*/}
                 {/*<Admin/>*/}

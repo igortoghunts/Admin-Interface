@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 
+
 const config = {
     apiKey: "AIzaSyDSJDOyFMmUX16Ac57Fmje4WnJl7hwSOVs",
     authDomain: "react-back-d0db4.firebaseapp.com",
@@ -16,20 +17,17 @@ class Firebase {
         this.auth = app.auth();
     }
 
-    // **Auth API **//
-
-    doCreateUserEmailAndPassword = (email, password) =>
-        this.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
+    doCreateUserWithEmailAndPassword = (email, password) =>
+        this.auth.createUserWithEmailAndPassword(email, password);
 
     doSignInWhitEmailAndPassword = (email, password) =>
-        this.auth.createUserAndRetrieveDataWithEmailAndPassword(email, password);
+        this.auth.createUserWithEmailAndPassword(email, password);
 
     doSignOut = () => this.auth.signOut();
 
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
     doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
-
 
 }
 
