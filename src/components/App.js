@@ -1,9 +1,8 @@
-import React from 'react';
-import {
-    BrowserRouter as Router,
-    Route
-} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Router, Route } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
+import history from '../apis/history';
 
 import Navigation from './Navigation';
 import Account from './Account';
@@ -15,27 +14,36 @@ import PasswordForget from './PasswordForget';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-
-function App() {
-  return (
-      <div className="ui container">
-        <Router>
-            <div className="ui inverted segment">
-                <Navigation/>
+class App extends Component {
+    render() {
+        return (
+            <div className="ui container">
+                <Router history={history}>
+                    <div className="ui inverted segment">
+                        <Navigation authUser={this.props.user}/>
+                    </div>
+                    <div className="ui segment">
+                        <Route path={ROUTES.SIGN_UP} component={SignUp} exact/>
+                        <Route path={ROUTES.SIGN_IN} component={SignIn} exact/>
+                        {/*<Home/>*/}
+                        {/*<Account/>*/}
+                        {/*<Admin/>*/}
+                        <Route path={ROUTES.LANDING} component={Landing} exact/>
+                        {/*<PasswordForget/>*/}
+                        {/*<PasswordChange/>*/}
+                    </div>
+                </Router>
             </div>
-            <div className="ui segment">
-                {/*<SignIn/>*/}
-                <Route path={ROUTES.SIGN_UP} component={SignUp} />
-                {/*<Home/>*/}
-                {/*<Account/>*/}
-                {/*<Admin/>*/}
-                {/*<Landing/>*/}
-                {/*<PasswordForget/>*/}
-                {/*<PasswordChange/>*/}
-            </div>
-        </Router>
-      </div>
-  );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        user: state.auth
+    }
+};
+
+export default connect(mapStateToProps)(App);
+
+
